@@ -1,0 +1,18 @@
+version: "3.1"
+
+rules:
+- rule: Respond to questions about the gravíssima fine
+  steps:
+  - intent: multa_gravidade
+  - action: utter_multa_gravidade
+
+- rule: Respond to questions about points on the driver's license
+  steps:
+  - intent: pontuação_cnh
+  - action: utter_pontuação_cnh
+
+
+- rule: Fallback action
+  steps:
+  - intent: "nlu_fallback"
+  - action: "action_default_fallback"

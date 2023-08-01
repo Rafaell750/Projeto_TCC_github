@@ -1,0 +1,21 @@
+version: "3.1"
+
+intents:
+  - sobre_infrações
+  - multa_gravidade
+  - pontuação_cnh
+  - utter_default
+
+responses:
+  utter_sobre_infrações:
+    - text: Infrações de trânsito são violações das regras estabelecidas no Código de Trânsito Brasileiro. Elas podem resultar em penalidades, como multas e pontos na CNH.
+
+  utter_multa_gravidade:
+  - text: "Segue abaixo as informações sobre as infrações:\n\nInfração leve: R$ 88,38 - pontos na CNH: 3\nInfração média: R$ 130,16 - pontos na CNH: 4\nInfração grave: R$ 195,23 - pontos na CNH: 5\nInfração gravíssima: R$ 293,47 - pontos na CNH: 7\nOBS: Infração gravíssima possuem o fator multiplicador variando de acordo com a infração cometida, podendo ir de x2 até x20 o valor\n"
+
+
+  utter_pontuação_cnh:
+    - text: A CNH possui um limite de 20 pontos. Quando o condutor atinge esse limite, sua habilitação é suspensa.
+
+  utter_default:
+    - text: Desculpe, não entendi o que você disse. Pode reformular sua pergunta?

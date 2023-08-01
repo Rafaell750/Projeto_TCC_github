@@ -1,0 +1,22 @@
+{
+  "lookup": {
+    "rules": {
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"pontua\\u00e7\\u00e3o_cnh\"}}]": "utter_pontuação_cnh",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"pontua\\u00e7\\u00e3o_cnh\"}}, {\"prev_action\": {\"action_name\": \"utter_pontua\\u00e7\\u00e3o_cnh\"}, \"user\": {\"intent\": \"pontua\\u00e7\\u00e3o_cnh\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"multa_gravidade\"}}]": "utter_multa_gravidade",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"multa_gravidade\"}}, {\"prev_action\": {\"action_name\": \"utter_multa_gravidade\"}, \"user\": {\"intent\": \"multa_gravidade\"}}]": "action_listen"
+    },
+    "rule_only_slots": [],
+    "rule_only_loops": [],
+    "rules_for_loop_unhappy_path": {},
+    "rules_not_in_stories": [
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"multa_gravidade\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"pontua\\u00e7\\u00e3o_cnh\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"multa_gravidade\"}}, {\"prev_action\": {\"action_name\": \"utter_multa_gravidade\"}, \"user\": {\"intent\": \"multa_gravidade\"}}]",
+      "predicting default action with intent session_start",
+      "predicting default action with intent restart",
+      "predicting default action with intent back",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"pontua\\u00e7\\u00e3o_cnh\"}}, {\"prev_action\": {\"action_name\": \"utter_pontua\\u00e7\\u00e3o_cnh\"}, \"user\": {\"intent\": \"pontua\\u00e7\\u00e3o_cnh\"}}]"
+    ]
+  }
+}

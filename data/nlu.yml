@@ -1,0 +1,39 @@
+version: "3.1"
+
+nlu:
+- intent: sobre_infrações
+  examples: |
+    - O que são infrações de trânsito?
+    - Explique as infrações de trânsito
+    - Definição de infrações no Código de Trânsito Brasileiro
+
+- intent: multa_gravidade
+  examples: |
+    - Qual a multa para infração?
+    - Valor da multa para infração
+    - Quanto custa a multa de uma infração?
+    - Quais são os diferentes valores de multas de trânsito para cada tipo de infração?
+    - Como é calculado o valor da multa para infrações de trânsito no Brasil?
+    - Existe diferença de valores entre multas leves, médias, graves e gravíssimas?
+    - Quero saber sobre as multas
+    - Sobre as multas do transito brasileiro
+    - As diferenças sobre os valores das multas
+    - Multas de transito
+
+- intent: pontuação_cnh
+  examples: |
+    - Como funciona a pontuação na CNH?
+    - Quantos pontos são permitidos na CNH?
+    - O que acontece quando atinge o limite de pontos na CNH?
+    - Qual é o limite de pontuação na CNH antes de ter a suspensão do direito de dirigir?
+    - Quanto tempo as infrações de trânsito permanecem registradas na CNH?
+    - Como funciona o sistema de pontuação na CNH? Como as infrações são somadas?
+    - Quais são as consequências de atingir o limite de pontuação da CNH?
+    - Existe um limite diferente de pontuação para condutores profissionais?
+    - Há alguma diferença no acúmulo de pontos entre infrações leves, médias, graves e gravíssimas?
+    - Posso recorrer das infrações de trânsito e evitar que pontos sejam adicionados à minha CNH?
+    - O que acontece se eu tiver a CNH suspensa e for flagrado dirigindo durante o período de suspensão?
+    - A pontuação da CNH pode ser zerada em algum momento? Se sim, como isso funciona?
+    - Quais são as infrações mais comuns que levam à adição de pontos na CNH?
+
+

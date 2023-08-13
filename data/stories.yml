@@ -3,3 +3,8 @@ version: "3.1"
 ## story_fallback
 * out_of_scope
   - utter_default
+
+- story: user asks about Article 165
+  steps:
+    - intent: Art_165_A_ao_C
+    - action: action_Art_165_A_ao_C

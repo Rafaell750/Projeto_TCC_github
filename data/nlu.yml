@@ -1,11 +1,7 @@
 version: "3.1"
 
 nlu:
-- intent: sobre_infrações
-  examples: |
-    - O que são infrações de trânsito?
-    - Explique as infrações de trânsito
-    - Definição de infrações no Código de Trânsito Brasileiro
+
 
 - intent: multa_gravidade
   examples: |
@@ -36,4 +32,62 @@ nlu:
     - A pontuação da CNH pode ser zerada em algum momento? Se sim, como isso funciona?
     - Quais são as infrações mais comuns que levam à adição de pontos na CNH?
 
+- intent: art_162_ao_164
+  examples: |
+    - O que se trata sobre o aritgo 162?
+    - Quais são as penalidades para dirigir um veículo sem possuir a Carteira Nacional de Habilitação, Permissão para Dirigir ou Autorização para Conduzir Ciclomotor?
+    - Qual é a penalidade e medida administrativa para dirigir com Carteira Nacional de Habilitação cassada ou com suspensão do direito de dirigir?
+    - O que acontece quando alguém dirige um veículo com uma CNH de categoria diferente da do veículo que está conduzindo?
+    - Qual é a penalidade para dirigir com uma CNH vencida há mais de 30 dias?
+    - Quais são as infrações e penalidades relacionadas a dirigir sem usar lentes corretoras de visão, aparelho auxiliar de audição, prótese física ou adaptações do veículo impostas por ocasião da concessão ou renovação da licença para conduzir?
+    - O que acontece se um condutor dirigir sem possuir os cursos especializados ou específicos obrigatórios?
+    - Qual é o tipo de infração associado a dirigir sem possuir a CNH, a Permissão para Dirigir ou a Autorização para Conduzir Ciclomotor?
+    - Quais são os tipos de infrações consideradas gravíssimas no artigo 162?
+    - Qual é o procedimento quando alguém dirige com uma CNH vencida há mais de 30 dias e é parado por uma autoridade de trânsito?
+    - As penalidades previstas no artigo 163 são as mesmas do artigo anterior 162. Que tipo de infração é essa?
+    
+    - O que se trata sobre o aritgo 163?
+    - Qual é a ação descrita no artigo 163 do Código de Trânsito Brasileiro?
+    - Quais são as condições em que é proibido entregar a direção do veículo a outra pessoa?
+    - Qual é a penalidade para quem entrega a direção do veículo a alguém que não possui habilitação ou possui habilitação suspensa/cassada?
+    - Se um condutor entregar a direção do veículo a alguém com uma permissão para dirigir uma categoria diferente, como isso será tratado?
+    - Qual é a medida administrativa adotada quando um veículo é entregue a um condutor que não atende às exigências da legislação de trânsito?
+    - Quais são as penalidades aplicadas quando alguém entrega a direção de um veículo a um condutor com a Carteira Nacional de Habilitação vencida há mais de 30 dias?
+    - Se um condutor emprestar seu veículo a alguém sem possuir os cursos especializados obrigatórios, quais serão as consequências de acordo com o artigo 163?
+    - O que acontece se o condutor entregar a direção do veículo a alguém com a Carteira Nacional de Habilitação suspensa?
+    - Qual é a medida administrativa aplicada quando alguém entrega a direção do veículo a um condutor que não atende às condições exigidas?
+    - O que o artigo 163 do Código de Trânsito Brasileiro estabelece em relação à entrega da direção de um veículo?
+
+    - Qual é a ação proibida pelo artigo 164 do Código de Trânsito Brasileiro?
+    - Quais são as condições referidas nos incisos do artigo 162 em relação a permitir que uma pessoa tome posse do veículo automotor e passe a conduzi-lo na via?
+    - Se alguém permitir que uma pessoa com a CNH cassada tome posse do veículo e o conduza na via, quais serão as penalidades e medidas administrativas aplicadas?
+    - De acordo com o artigo 164, qual é a relação entre as infrações, penalidades e medidas administrativas deste artigo e as do artigo 162?
+    - O que acontece quando um proprietário de veículo permite que uma pessoa com a CNH suspensa tome posse do veículo e passe a conduzi-lo na via?
+    - Quais são as penalidades previstas se alguém permitir que uma pessoa com a CNH vencida há mais de 30 dias tome posse do veículo e o conduza na via?
+    - Se uma pessoa emprestar seu veículo a alguém sem possuir os cursos especializados obrigatórios, quais serão as consequências de acordo com o artigo 164?
+    - Qual é a medida administrativa aplicada quando alguém permite que uma pessoa sem os cursos especializados obrigatórios tome posse do veículo e passe a conduzi-lo na via?
+    - Se um proprietário permitir que uma pessoa nas condições do inciso VI do artigo 162 tome posse do veículo e o conduza na via, o que acontecerá?
+    - Como é tratado no artigo 164 o caso de permitir que uma pessoa com a CNH de categoria diferente tome posse do veículo e o conduza na via?
+
+
+
+- intent: art_165_A_ao_C
+  examples: |
+    - Qual é o artigo sobre o álcool?
+    - Quero saber sobre a lei do álcool
+    - O que é considerado uma infração de acordo com o artigo 165 do Código de Trânsito Brasileiro?
+    - Quais são as penalidades previstas para quem for pego dirigindo sob a influência de álcool ou substância psicoativa?
+    - O que acontece com o documento de habilitação e o veículo quando alguém é pego dirigindo sob a influência de álcool ou substância psicoativa?
+    - Como é tratada a reincidência no período de até 12 meses no contexto do artigo 165?
+    - O que diz o parágrafo único do artigo 165 em relação à reincidência nesse tipo de infração?
+
+    - O que é considerado uma infração de acordo com o artigo 165-A do Código de Trânsito Brasileiro?
+    - Quais são as penalidades para quem se recusar a ser submetido a teste, exame clínico ou perícia para verificar influência de álcool ou substância psicoativa?
+    - O que acontece com o documento de habilitação e o veículo quando alguém se recusa a fazer os testes ou exames determinados no artigo 165-A?
+
+    - O que é considerado uma infração de acordo com o artigo 165-B do Código de Trânsito Brasileiro?
+    - Quais são as penalidades para quem dirigir sem ter realizado o exame toxicológico?
+
+    - O que é considerado uma infração de acordo com o artigo 165-C do Código de Trânsito Brasileiro?
+    - O que acontece se eu dirigir com resultado positivo no exame toxicológico?
 

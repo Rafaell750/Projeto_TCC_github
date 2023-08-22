@@ -2,112 +2,123 @@ version: "3.1"
 
 intents:
   - multa_gravidade
-  - pontuação_cnh
-  - utter_default
+  # - pontuação_cnh
+  # - utter_default
 
-  - art_162_ao_164
-  - art_165_A_ao_C
+  # - art_162_ao_164
+  # - art_165_A_ao_C
 
-responses:
-
-  utter_multa_gravidade:
-  - text: "Segue abaixo as informações sobre as multas:\n
-  Infração leve: R$ 88,38 - pontos na CNH: 3\n
-  Infração média: R$ 130,16 - pontos na CNH: 4\n
-  Infração grave: R$ 195,23 - pontos na CNH: 5\n
-  Infração gravíssima: R$ 293,47 - pontos na CNH: 7\n
-  OBS: Infração gravíssima possuem o fator multiplicador variando de acordo com a infração cometida, podendo ir de x1 até x20 o valor\n"
-
-
-  utter_pontuação_cnh:
-    - text: "A pontuação na CNH funciona com o acréscimo de pontos na carteira de motorista a cada infração cometida. Caso o motorista atinja 40 pontos (em alguns casos), é instaurado um processo de suspensão da CNH.\n
-      - Infração leve: 3 pontos\n
-      - Infração média: 4 pontos\n
-      - Infração grave: 5 pontos\n
-      - Infração gravíssima: 7 pontos\n
-      - Limite de 40 pontos - Só pode chegar nesta pontuação se não houver nenhuma infração gravíssima\n
-      - Limite de 30 pontos - Só pode ter apenas uma infração gravíssima\n
-      - Limite de 20 pontos - Se o condutor tiver duas ou mais infrações gravíssimas\n
-
-      Cada pontuação tem o prazo de validade de 1 ano a contar da data da infração. Após esse período, os pontos expiram.\n"
-
-  utter_default:
-    - text: "Desculpe, não entendi o que você disse. Pode reformular sua pergunta?"
-
-
-# Artigos
-  utter_art_162_ao_164:
-    - text: " Art. 162. Dirigir veículo:\n
-    I - sem possuir Carteira Nacional de Habilitação, Permissão para Dirigir ou Autorização para Conduzir Ciclomotor:\n
-    Infração - gravíssima;\n
-    Penalidade - multa (três vezes);\n
-    Medida administrativa - retenção do veículo até a apresentação de condutor habilitado;\n
-
-    II - com Carteira Nacional de Habilitação, Permissão para Dirigir ou Autorização para Conduzir Ciclomotor cassada ou com suspensão do direito de dirigir:\n
-    Infração - gravíssima;\n
-    Penalidade - multa (três vezes);\n
-    Medida administrativa - recolhimento do documento de habilitação e retenção do veículo até a apresentação de condutor habilitado;\n
-
-    III - com Carteira Nacional de Habilitação ou Permissão para Dirigir de categoria diferente da do veículo que esteja conduzindo:\n
-    Infração - gravíssima;\n
-    Penalidade - multa (duas vezes);\n
-    Medida administrativa - retenção do veículo até a apresentação de condutor habilitado;\n
-
-    IV - (VETADO)\n
-
-    V - com Carteira Nacional de Habilitação vencida há mais de 30 (trinta) dias:\n
-    Infração - gravíssima;\n
-    Penalidade - multa;\n
-    Medida administrativa - retenção do veículo até a apresentação de condutor habilitado;\n
-
-    VI - sem usar lentes corretoras de visão, aparelho auxiliar de audição, de prótese física ou as adaptações do veículo impostas por ocasião da concessão ou da renovação da licença para conduzir:\n
-    Infração - gravíssima;\n
-    Penalidade - multa;\n
-    Medida administrativa - retenção do veículo até o saneamento da irregularidade ou apresentação de condutor habilitado.\n
-
-    VII - sem possuir os cursos especializados ou específicos obrigatórios:\n
-    Infração - gravíssima;\n
-    Penalidade - multa;\n     
-    Medida administrativa - retenção do veículo até a apresentação de condutor habilitado.\n
-    _\n
-
-    Art. 163. Entregar a direção do veículo a pessoa nas condições previstas no artigo anterior:\n
-    Infração - as mesmas previstas no artigo anterior;\n
-    Penalidade - as mesmas previstas no artigo anterior;\n
-    Medida administrativa - a mesma prevista no inciso III do artigo anterior.\n
-    _\n
-
-    Art. 164. Permitir que pessoa nas condições referidas nos incisos do art. 162 tome posse do veículo automotor e passe a conduzi-lo na via:\n
-    Infração - as mesmas previstas nos incisos do art. 162;\n
-    Penalidade - as mesmas previstas no art. 162;\n
-    Medida administrativa - a mesma prevista no inciso III do art. 162.\n"
+actions:
+  - action_multa_gravidade
 
 
 
-  utter_art_165_A_ao_C:
-    - text: "Art. 165.  Dirigir sob a influência de álcool ou de qualquer outra substância psicoativa que determine dependência:\n
-    Infração - gravíssima;\n
-    Penalidade - multa (dez vezes) e suspensão do direito de dirigir por 12 (doze) meses.
-    Medida administrativa - recolhimento do documento de habilitação e retenção do veículo, observado o disposto no § 4o do art. 270 da Lei no 9.503, de 23 de setembro de 1997 - do Código de Trânsito Brasileiro.\n
-    Parágrafo único. Aplica-se em dobro a multa prevista no caput em caso de reincidência no período de até 12 (doze) meses.\n
-    _\n
 
-    Art. 165-A.  Recusar-se a ser submetido a teste, exame clínico, perícia ou outro procedimento que permita certificar influência de álcool ou outra substância psicoativa, na forma estabelecida pelo art. 277:\n
-    Infração - gravíssima;\n        
-    Penalidade - multa (dez vezes) e suspensão do direito de dirigir por 12 (doze) meses;\n         
-    Medida administrativa - recolhimento do documento de habilitação e retenção do veículo, observado o disposto no § 4º do art. 270.\n
-    Parágrafo único. Aplica-se em dobro a multa prevista no caput em caso de reincidência no período de até 12 (doze) meses\n
-    _\n
 
-    Art. 165-B. Dirigir veículo sem realizar o exame toxicológico previsto no art. 148-A deste Código:\n
-    Infração - gravíssima;\n
-    Penalidade - multa (cinco vezes) e, em caso de reincidência no período de até 12 (doze) meses, multa (dez vezes) e suspensão do direito de dirigir\n
-    Parágrafo único. No caso de não cumprimento do disposto no § 2º do art. 148-A deste Código, configurar-se-á a infração quando o condutor dirigir veículo após o trigésimo dia do vencimento do prazo estabelecido.\n
-    _\n
 
-    Art. 165-C. Dirigir veículo tendo obtido resultado positivo no exame toxicológico previsto no caput do art. 148-A deste Código:\n
-    Infração - gravíssima;\n
-    Penalidade - multa (cinco vezes) e, em caso de reincidência no período de até 12 (doze) meses, multa (dez vezes) e suspensão do direito de dirigir.\n"
+
+
+
+
+
+
+
+
+
+# responses:
+
+
+
+
+#   utter_pontuação_cnh:
+#     - text: "A pontuação na CNH funciona com o acréscimo de pontos na carteira de motorista a cada infração cometida. Caso o motorista atinja 40 pontos (em alguns casos), é instaurado um processo de suspensão da CNH.\n
+#       - Infração leve: 3 pontos\n
+#       - Infração média: 4 pontos\n
+#       - Infração grave: 5 pontos\n
+#       - Infração gravíssima: 7 pontos\n
+#       - Limite de 40 pontos - Só pode chegar nesta pontuação se não houver nenhuma infração gravíssima\n
+#       - Limite de 30 pontos - Só pode ter apenas uma infração gravíssima\n
+#       - Limite de 20 pontos - Se o condutor tiver duas ou mais infrações gravíssimas\n
+
+#       Cada pontuação tem o prazo de validade de 1 ano a contar da data da infração. Após esse período, os pontos expiram.\n"
+
+#   utter_default:
+#     - text: "Desculpe, não entendi o que você disse. Pode reformular sua pergunta?"
+
+
+# # Artigos
+#   utter_art_162_ao_164:
+#     - text: " Art. 162. Dirigir veículo:\n
+#     I - sem possuir Carteira Nacional de Habilitação, Permissão para Dirigir ou Autorização para Conduzir Ciclomotor:\n
+#     Infração - gravíssima;\n
+#     Penalidade - multa (três vezes);\n
+#     Medida administrativa - retenção do veículo até a apresentação de condutor habilitado;\n
+
+#     II - com Carteira Nacional de Habilitação, Permissão para Dirigir ou Autorização para Conduzir Ciclomotor cassada ou com suspensão do direito de dirigir:\n
+#     Infração - gravíssima;\n
+#     Penalidade - multa (três vezes);\n
+#     Medida administrativa - recolhimento do documento de habilitação e retenção do veículo até a apresentação de condutor habilitado;\n
+
+#     III - com Carteira Nacional de Habilitação ou Permissão para Dirigir de categoria diferente da do veículo que esteja conduzindo:\n
+#     Infração - gravíssima;\n
+#     Penalidade - multa (duas vezes);\n
+#     Medida administrativa - retenção do veículo até a apresentação de condutor habilitado;\n
+
+#     IV - (VETADO)\n
+
+#     V - com Carteira Nacional de Habilitação vencida há mais de 30 (trinta) dias:\n
+#     Infração - gravíssima;\n
+#     Penalidade - multa;\n
+#     Medida administrativa - retenção do veículo até a apresentação de condutor habilitado;\n
+
+#     VI - sem usar lentes corretoras de visão, aparelho auxiliar de audição, de prótese física ou as adaptações do veículo impostas por ocasião da concessão ou da renovação da licença para conduzir:\n
+#     Infração - gravíssima;\n
+#     Penalidade - multa;\n
+#     Medida administrativa - retenção do veículo até o saneamento da irregularidade ou apresentação de condutor habilitado.\n
+
+#     VII - sem possuir os cursos especializados ou específicos obrigatórios:\n
+#     Infração - gravíssima;\n
+#     Penalidade - multa;\n     
+#     Medida administrativa - retenção do veículo até a apresentação de condutor habilitado.\n
+#     _\n
+
+#     Art. 163. Entregar a direção do veículo a pessoa nas condições previstas no artigo anterior:\n
+#     Infração - as mesmas previstas no artigo anterior;\n
+#     Penalidade - as mesmas previstas no artigo anterior;\n
+#     Medida administrativa - a mesma prevista no inciso III do artigo anterior.\n
+#     _\n
+
+#     Art. 164. Permitir que pessoa nas condições referidas nos incisos do art. 162 tome posse do veículo automotor e passe a conduzi-lo na via:\n
+#     Infração - as mesmas previstas nos incisos do art. 162;\n
+#     Penalidade - as mesmas previstas no art. 162;\n
+#     Medida administrativa - a mesma prevista no inciso III do art. 162.\n"
+
+
+
+#   utter_art_165_A_ao_C:
+#     - text: "Art. 165.  Dirigir sob a influência de álcool ou de qualquer outra substância psicoativa que determine dependência:\n
+#     Infração - gravíssima;\n
+#     Penalidade - multa (dez vezes) e suspensão do direito de dirigir por 12 (doze) meses.
+#     Medida administrativa - recolhimento do documento de habilitação e retenção do veículo, observado o disposto no § 4o do art. 270 da Lei no 9.503, de 23 de setembro de 1997 - do Código de Trânsito Brasileiro.\n
+#     Parágrafo único. Aplica-se em dobro a multa prevista no caput em caso de reincidência no período de até 12 (doze) meses.\n
+#     _\n
+
+#     Art. 165-A.  Recusar-se a ser submetido a teste, exame clínico, perícia ou outro procedimento que permita certificar influência de álcool ou outra substância psicoativa, na forma estabelecida pelo art. 277:\n
+#     Infração - gravíssima;\n        
+#     Penalidade - multa (dez vezes) e suspensão do direito de dirigir por 12 (doze) meses;\n         
+#     Medida administrativa - recolhimento do documento de habilitação e retenção do veículo, observado o disposto no § 4º do art. 270.\n
+#     Parágrafo único. Aplica-se em dobro a multa prevista no caput em caso de reincidência no período de até 12 (doze) meses\n
+#     _\n
+
+#     Art. 165-B. Dirigir veículo sem realizar o exame toxicológico previsto no art. 148-A deste Código:\n
+#     Infração - gravíssima;\n
+#     Penalidade - multa (cinco vezes) e, em caso de reincidência no período de até 12 (doze) meses, multa (dez vezes) e suspensão do direito de dirigir\n
+#     Parágrafo único. No caso de não cumprimento do disposto no § 2º do art. 148-A deste Código, configurar-se-á a infração quando o condutor dirigir veículo após o trigésimo dia do vencimento do prazo estabelecido.\n
+#     _\n
+
+#     Art. 165-C. Dirigir veículo tendo obtido resultado positivo no exame toxicológico previsto no caput do art. 148-A deste Código:\n
+#     Infração - gravíssima;\n
+#     Penalidade - multa (cinco vezes) e, em caso de reincidência no período de até 12 (doze) meses, multa (dez vezes) e suspensão do direito de dirigir.\n"
 
 
 

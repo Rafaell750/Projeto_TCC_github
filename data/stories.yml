@@ -1,10 +1,13 @@
 version: "3.1"
 
-## story_fallback
-* out_of_scope
-  - utter_default
+# ## story_fallback
+# * out_of_scope
+#   - utter_default
 
-- story: user asks about Article 165
+
+stories:
+- story: Mostrar informações sobre multa
   steps:
-    - intent: Art_165_A_ao_C
-    - action: action_Art_165_A_ao_C
+  - intent: multa_gravidade
+  - action: action_multa_gravidade
+

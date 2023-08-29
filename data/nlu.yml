@@ -5,6 +5,10 @@ nlu:
 
 - intent: multa_gravidade
   examples: |
+    - Qual o valor para multas leves?
+    - Qual o valor para multas médias?
+    - Qual o valor para multas graves?
+    - Qual o valor para multas gravíssimas?
     - Qual a multa para infração?
     - Valor da multa para infração
     - Quanto custa a multa de uma infração?

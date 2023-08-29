@@ -2,8 +2,32 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 
+import logging
 
-# Informações sobre multas e gravidade
+# Defina o nível de log para DEBUG
+logging.basicConfig(level=logging.DEBUG)
+
+# Dicionário com informações sobre multas e gravidades
+multa_gravidade = {
+    "leve": {
+        "valor": 88.38,
+        "pontos_na_cnh": 3
+    },
+    "média": {
+        "valor": 130.16,
+        "pontos_na_cnh": 4
+    },
+    "grave": {
+        "valor": 195.23,
+        "pontos_na_cnh": 5
+    },
+    "gravíssima": {
+        "valor": 293.47,
+        "pontos_na_cnh": 7,
+        "fator_multiplicador": "x1 até x20"
+    }
+}
+
 class ActionMultaGravidade(Action):
     def name(self) -> Text:
         return "action_multa_gravidade"
@@ -12,17 +36,29 @@ class ActionMultaGravidade(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        message = (
-            "Segue abaixo as informações sobre as multas:\n"
-            "Infração leve: R$ 88,38 - pontos na CNH: 3\n"
-            "Infração média: R$ 130,16 - pontos na CNH: 4\n"
-            "Infração grave: R$ 195,23 - pontos na CNH: 5\n"
-            "Infração gravíssima: R$ 293,47 - pontos na CNH: 7\n"
-            "OBS: Infração gravíssima possuem o fator multiplicador variando de acordo com a infração cometida, podendo ir de x1 até x20 o valor\n"
-        )
-        
+        # Importe o módulo de logging
+        import logging
+
+        # Defina o logger aqui
+        logger = logging.getLogger(__name__)
+        logger.debug("Inside action_multa_gravidade")
+
+        # Obtém a intenção do usuário
+        intent = tracker.latest_message["intent"].get("name")
+        logger.debug(f"Intent: {intent}")
+
+        if intent in multa_gravidade and "valor" in multa_gravidade[intent]:
+            multa_info = multa_gravidade[intent]
+            message = (
+                f"O valor da multa de gravidade '{intent}' é R$ {multa_info['valor']}"
+            )
+
+        else:
+            message = "Desculpe, não tenho informações sobre essa gravidade de multa."
+
         dispatcher.utter_message(text=message)
         return []
+
 
 # # informações sobre pontuação na CNH
 # class ActionPontuacaoCNH(Action):

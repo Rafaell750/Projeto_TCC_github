@@ -1,13 +1,8 @@
 version: "3.1"
 
-# ## story_fallback
-# * out_of_scope
-#   - utter_default
-
-
 stories:
-- story: Mostrar informações sobre multa
+- story: usuário quer informações da lei
   steps:
-  - intent: multa_gravidade
-  - action: action_multa_gravidade
+  - intent: fetch_lei
+  - action: action_fetch_lei
 

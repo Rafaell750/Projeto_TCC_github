@@ -1,116 +1,44 @@
-from typing import Any, Text, Dict, List
-from rasa_sdk import Action, Tracker
-from rasa_sdk.executor import CollectingDispatcher
+import requests
+from bs4 import BeautifulSoup
+from rasa_sdk import Action
+from rasa_sdk.events import SlotSet
 
-import logging
+import PyPDF2
+import re
 
-# Defina o nível de log para DEBUG
-logging.basicConfig(level=logging.DEBUG)
+class ActionFetchLei(Action):
+    def name(self):
+        return "action_fetch_lei"
 
-# Dicionário com informações sobre multas e gravidades
-multa_gravidade = {
-    "leve": {
-        "valor": 88.38,
-        "pontos_na_cnh": 3
-    },
-    "média": {
-        "valor": 130.16,
-        "pontos_na_cnh": 4
-    },
-    "grave": {
-        "valor": 195.23,
-        "pontos_na_cnh": 5
-    },
-    "gravíssima": {
-        "valor": 293.47,
-        "pontos_na_cnh": 7,
-        "fator_multiplicador": "x1 até x20"
-    }
-}
+    def run(self, dispatcher, tracker, domain):
+        file_path = 'C:\\Users\\rafae\\Documents\\Rasa_Projects\\Projeto_TCC\\L9503.pdf'
+        text = self.extract_text_from_pdf(file_path)
 
-class ActionMultaGravidade(Action):
-    def name(self) -> Text:
-        return "action_multa_gravidade"
+        # Definir palavras-chaves
+        keywords = ['álcool']
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        # Divide o texto em sentenças
+        sentences = re.split('(?<=[.!?]) +', text)
 
-        # Importe o módulo de logging
-        import logging
+        # Procure por palavras-chave no texto
+        relevant_sentences = [sentence for sentence in sentences if any(keyword in sentence for keyword in keywords)]
 
-        # Defina o logger aqui
-        logger = logging.getLogger(__name__)
-        logger.debug("Inside action_multa_gravidade")
-
-        # Obtém a intenção do usuário
-        intent = tracker.latest_message["intent"].get("name")
-        logger.debug(f"Intent: {intent}")
-
-        if intent in multa_gravidade and "valor" in multa_gravidade[intent]:
-            multa_info = multa_gravidade[intent]
-            message = (
-                f"O valor da multa de gravidade '{intent}' é R$ {multa_info['valor']}"
-            )
-
+        if relevant_sentences:
+            # Se alguma palavra-chave for encontrada, envie uma mensagem com as sentenças relevantes
+            dispatcher.utter_message(text=' '.join(relevant_sentences))
         else:
-            message = "Desculpe, não tenho informações sobre essa gravidade de multa."
+            # Se nenhuma palavra-chave for encontrada, envie uma mensagem diferente
+            dispatcher.utter_message(text='Nenhuma das palavras-chave procuradas foi encontrada no texto.')
 
-        dispatcher.utter_message(text=message)
-        return []
+        return [SlotSet("lei_info", text)]
 
-
-
-
-# # informações sobre pontuação na CNH
-# class ActionPontuacaoCNH(Action):
-#     def name(self) -> Text:
-#         return "action_pontuação_cnh"
-
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#      # Enviando a resposta previamente definida no arquivo responses.md
-#         dispatcher.utter_message(text="utter_pontuação_cnh")
-#         return []
-
-# # Artigos
-
-# class ActionArt162ao164(Action):
-#     def name(self) -> Text:
-#         return "action_art_162_ao_164"
-
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-#         dispatcher.utter_message(response="utter_art_162_ao_164")
-#         return []
-
-# class ActionArt165AaoC(Action):
-#     def name(self) -> Text:
-#         return "action_art_165_A_ao_C"
-
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-#         dispatcher.utter_message(text="utter_art_165_A_ao_C")
-#         return []
-
-
-
-
-
-# Resposta quando nenhuma intenção específica é identificada
-# class ActionDefaultFallback(Action):
-#     def name(self) -> Text:
-#         return "action_default_fallback"
-
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#         dispatcher.utter_message(template="utter_default")
-#         return []
-
-
+    def extract_text_from_pdf(self, file_path):
+        pdf_file_obj = open(file_path, 'rb')
+        pdf_reader = PyPDF2.PdfReader(pdf_file_obj)
+        num_pages = len(pdf_reader.pages)
+        text = ""
+        for page in range(num_pages):
+            page_obj = pdf_reader.pages[page]
+            text += page_obj.extract_text()
+        pdf_file_obj.close()
+        return text

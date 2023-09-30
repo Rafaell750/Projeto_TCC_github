@@ -1,10 +1,16 @@
-import requests
-from bs4 import BeautifulSoup
 from rasa_sdk import Action
 from rasa_sdk.events import SlotSet
-
-import PyPDF2
+import requests
 import re
+from io import StringIO
+from pdfminer.converter import TextConverter
+from pdfminer.layout import LAParams
+from pdfminer.pdfdocument import PDFDocument
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.pdfpage import PDFPage
+from pdfminer.pdfparser import PDFParser
+import json
+
 
 class ActionFetchLei(Action):
     def name(self):
@@ -14,32 +20,95 @@ class ActionFetchLei(Action):
         file_path = 'C:\\Users\\rafae\\Documents\\Rasa_Projects\\Projeto_TCC\\L9503.pdf'
         text = self.extract_text_from_pdf(file_path)
 
-        # Definir palavras-chaves
-        keywords = ['álcool']
+        # Obtenha a última mensagem do usuário (a pergunta)
+        question = tracker.latest_message.get('text')
 
-        # Divide o texto em sentenças
-        sentences = re.split('(?<=[.!?]) +', text)
+        # Use a função get_keywords para obter as palavras-chave da pergunta
+        keywords = self.get_keywords(question)
 
-        # Procure por palavras-chave no texto
-        relevant_sentences = [sentence for sentence in sentences if any(keyword in sentence for keyword in keywords)]
+        # Imprima as palavras-chave para depuração
+        print("Palavras-chave:", keywords)
 
-        if relevant_sentences:
-            # Se alguma palavra-chave for encontrada, envie uma mensagem com as sentenças relevantes
-            dispatcher.utter_message(text=' '.join(relevant_sentences))
-        else:
-            # Se nenhuma palavra-chave for encontrada, envie uma mensagem diferente
-            dispatcher.utter_message(text='Nenhuma das palavras-chave procuradas foi encontrada no texto.')
+        # Verifique se cada palavra-chave está no texto
+        for keyword in keywords:
+            if keyword in text:
+                print(f"A palavra-chave 'álcool' foi encontrada no texto.")
+            else:
+                print(f"A palavra-chave 'álcool' não foi encontrada no texto.")
 
-        return [SlotSet("lei_info", text)]
+        # Divida o texto em chunks de 5000 caracteres (ou o tamanho que preferir)
+        chunks = [text[i:i+4000] for i in range(0, len(text), 4000)]
+
+        # Procure por palavras-chave em cada chunk e use a função answer_question para gerar uma resposta
+        for chunk in chunks:
+            if any(keyword in chunk for keyword in keywords):
+                response = self.answer_question(chunk, question)
+                if response.get("answer_found"):
+                    dispatcher.utter_message(text=response.get("response"))
+                    return [SlotSet("lei_info", response.get("response"))]
+
+        dispatcher.utter_message(text='Desculpe, não consegui encontrar uma resposta para a sua pergunta.')
+        return [SlotSet("lei_info", None)]
 
     def extract_text_from_pdf(self, file_path):
-        pdf_file_obj = open(file_path, 'rb')
-        pdf_reader = PyPDF2.PdfReader(pdf_file_obj)
-        num_pages = len(pdf_reader.pages)
-        text = ""
-        for page in range(num_pages):
-            page_obj = pdf_reader.pages[page]
-            text += page_obj.extract_text()
-        pdf_file_obj.close()
-        return text
+        output_string = StringIO()
+        with open(file_path, 'rb') as in_file:
+            parser = PDFParser(in_file)
+            doc = PDFDocument(parser)
+            rsrcmgr = PDFResourceManager()
+            device = TextConverter(rsrcmgr, output_string, laparams=LAParams())
+            interpreter = PDFPageInterpreter(rsrcmgr, device)
+            for page in PDFPage.create_pages(doc):
+                interpreter.process_page(page)
 
+        return output_string.getvalue()
+
+    def get_keywords(self, question):
+        url = 'https://api.pawan.krd/v1/chat/completions'
+        headers = {
+            'Authorization': 'Bearer pk-bYmcGbiKOqnbZJESVyOXEwyBhLtnxjEDlTTSVUmsknzcRgkG',
+            'Content-Type': 'application/json'
+        }
+        data = {
+            "model": "gpt-3.5-turbo",
+            "max_tokens": 4000,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are a helpful assistant."
+                },
+                {
+                    "role": "user",
+                    "content": question
+                }
+            ]
+        }
+
+        response = requests.post(url, headers=headers, data=json.dumps(data))
+
+        return response.json()
+
+    def answer_question(self, chunk, question):
+        url = 'https://api.pawan.krd/v1/chat/completions'
+        headers = {
+            'Authorization': 'Bearer pk-bYmcGbiKOqnbZJESVyOXEwyBhLtnxjEDlTTSVUmsknzcRgkG',
+            'Content-Type': 'application/json'
+        }
+        data = {
+            "model": "gpt-3.5-turbo",
+            "max_tokens": 4000,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": chunk
+                },
+                {
+                    "role": "user",
+                    "content": question
+                }
+            ]
+        }
+
+        response = requests.post(url, headers=headers, data=json.dumps(data))
+
+        return response.json()

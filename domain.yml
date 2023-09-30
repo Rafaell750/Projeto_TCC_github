@@ -13,9 +13,7 @@ slots:
 actions:
 - action_fetch_lei
 
-responses:
-  utter_ask_lei:
-  - text: "Você gostaria de saber informações sobre a lei?"
+
 
 
 

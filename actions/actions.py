@@ -14,7 +14,7 @@ class ActionGetKeywords(Action):
     def run(self, dispatcher, tracker, domain):
         question = tracker.latest_message['text']
         
-        # Aqui está o seu código original para obter palavras-chave
+        
         prompt = f"""Respoda as perguntas ao encontrar a informação para a pergunta em um arquivo texto_pdf.py. Oberve a pergunta do usuario e busque por palavras chaves no texto_pdf.py para responder a mesma. Apenas uma palavra por palavra-chave. Use apenas letras minúsculas. 
     
 {question}"""
@@ -47,7 +47,7 @@ class ActionAnswerQuestion(Action):
         question = tracker.latest_message['text']
         keywords = tracker.get_slot('keywords')
         
-        # Aqui está o seu código original para responder à pergunta
+        
         prompt = f"""```
 {texto}
 

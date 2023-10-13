@@ -1,11 +1,7 @@
 version: "3.1"
 
 nlu:
-- intent: fetch_lei
+- intent: answer_question
   examples: |
-    - Me fale sobre a lei
-    - Quero saber sobre a lei
-    - Pode me dar informações sobre a lei?
-    - Me fale sobre o artigo 5
-    - fale sobre o art 5
-    - O que diz o artigo 5?
+    - Qual a gravidade por dirigir sem cinto de segurança?
+    

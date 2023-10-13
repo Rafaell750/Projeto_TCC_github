@@ -1,17 +1,22 @@
 version: "3.1"
 
 intents:
-- fetch_lei
-
-slots:
-  lei_info:
-    type: text
-    influence_conversation: false
-    mappings:
-      - type: custom
+- get_keywords
+- answer_question
+- fazer_pergunta
 
 actions:
-- action_fetch_lei
+- action_get_keywords
+- action_answer_question
+
+# slots:
+#   keywords:
+#     type: list
+#     mappings:
+#       - type: from_text
+
+
+
 
 
 

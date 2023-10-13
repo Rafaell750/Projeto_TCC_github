@@ -1,114 +1,94 @@
 from rasa_sdk import Action
 from rasa_sdk.events import SlotSet
-import requests
-import re
-from io import StringIO
-from pdfminer.converter import TextConverter
-from pdfminer.layout import LAParams
-from pdfminer.pdfdocument import PDFDocument
-from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
-from pdfminer.pdfpage import PDFPage
-from pdfminer.pdfparser import PDFParser
-import json
+from texto_pdf import texto
+import openai
 
+openai.api_key = 'pk-NQwxbvbSYZWwHHXISPhCDwhNYqJHHFfPdCaLPzrjePNvAIQo'
+openai.api_base = 'https://api.pawan.krd/v1'
+model = "pai-001-light-beta"
 
-class ActionFetchLei(Action):
+class ActionGetKeywords(Action):
     def name(self):
-        return "action_fetch_lei"
+        return "action_get_keywords"
 
     def run(self, dispatcher, tracker, domain):
-        file_path = 'C:\\Users\\rafae\\Documents\\Rasa_Projects\\Projeto_TCC\\L9503.pdf'
-        text = self.extract_text_from_pdf(file_path)
+        question = tracker.latest_message['text']
+        
+        # Aqui está o seu código original para obter palavras-chave
+        prompt = f"""Respoda as perguntas ao encontrar a informação para a pergunta em um arquivo texto_pdf.py. Oberve a pergunta do usuario e busque por palavras chaves no texto_pdf.py para responder a mesma. Apenas uma palavra por palavra-chave. Use apenas letras minúsculas. 
+    
+{question}"""
 
-        # Obtenha a última mensagem do usuário (a pergunta)
-        question = tracker.latest_message.get('text')
-
-        # Use a função get_keywords para obter as palavras-chave da pergunta
-        keywords = self.get_keywords(question)
-
-        # Imprima as palavras-chave para depuração
-        print("Palavras-chave:", keywords)
-
-        # Verifique se cada palavra-chave está no texto
-        for keyword in keywords:
-            if keyword in text:
-                print(f"A palavra-chave 'álcool' foi encontrada no texto.")
-            else:
-                print(f"A palavra-chave 'álcool' não foi encontrada no texto.")
-
-        # Divida o texto em chunks de 5000 caracteres (ou o tamanho que preferir)
-        chunks = [text[i:i+4000] for i in range(0, len(text), 4000)]
-
-        # Procure por palavras-chave em cada chunk e use a função answer_question para gerar uma resposta
-        for chunk in chunks:
-            if any(keyword in chunk for keyword in keywords):
-                response = self.answer_question(chunk, question)
-                if response.get("answer_found"):
-                    dispatcher.utter_message(text=response.get("response"))
-                    return [SlotSet("lei_info", response.get("response"))]
-
-        dispatcher.utter_message(text='Desculpe, não consegui encontrar uma resposta para a sua pergunta.')
-        return [SlotSet("lei_info", None)]
-
-    def extract_text_from_pdf(self, file_path):
-        output_string = StringIO()
-        with open(file_path, 'rb') as in_file:
-            parser = PDFParser(in_file)
-            doc = PDFDocument(parser)
-            rsrcmgr = PDFResourceManager()
-            device = TextConverter(rsrcmgr, output_string, laparams=LAParams())
-            interpreter = PDFPageInterpreter(rsrcmgr, device)
-            for page in PDFPage.create_pages(doc):
-                interpreter.process_page(page)
-
-        return output_string.getvalue()
-
-    def get_keywords(self, question):
-        url = 'https://api.pawan.krd/v1/chat/completions'
-        headers = {
-            'Authorization': 'Bearer pk-bYmcGbiKOqnbZJESVyOXEwyBhLtnxjEDlTTSVUmsknzcRgkG',
-            'Content-Type': 'application/json'
-        }
-        data = {
-            "model": "gpt-3.5-turbo",
-            "max_tokens": 4000,
-            "messages": [
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=[
                 {
                     "role": "system",
-                    "content": "You are a helpful assistant."
+                    "content": "Você sempre fornecerá 10 palavras-chave que incluam sinônimos relevantes das palavras da pergunta original com exceção das palavras grave e gravissima"
                 },
                 {
                     "role": "user",
-                    "content": question
+                    "content": prompt,
                 }
-            ]
-        }
+            ],
+            temperature=0.1,  # Tornar as respostas mais focadas
+            max_tokens=100,  # Permitir respostas mais longas
+        )
+        arguments = response["choices"][0]["message"]["content"].lower()
+        keywords = arguments.split(", ")
 
-        response = requests.post(url, headers=headers, data=json.dumps(data))
+        return [SlotSet("keywords", keywords)]
 
-        return response.json()
+class ActionAnswerQuestion(Action):
+    def name(self):
+        return "action_answer_question"
 
-    def answer_question(self, chunk, question):
-        url = 'https://api.pawan.krd/v1/chat/completions'
-        headers = {
-            'Authorization': 'Bearer pk-bYmcGbiKOqnbZJESVyOXEwyBhLtnxjEDlTTSVUmsknzcRgkG',
-            'Content-Type': 'application/json'
-        }
-        data = {
-            "model": "gpt-3.5-turbo",
-            "max_tokens": 4000,
-            "messages": [
+    def run(self, dispatcher, tracker, domain):
+        question = tracker.latest_message['text']
+        keywords = tracker.get_slot('keywords')
+        
+        # Aqui está o seu código original para responder à pergunta
+        prompt = f"""```
+{texto}
+
+{question}
+```"""
+
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=[
                 {
                     "role": "system",
-                    "content": chunk
+                    "content": "Responda somente em portugues. Always set answer_found to false if the answer to the question was not found in the informaton provided."
                 },
                 {
                     "role": "user",
-                    "content": question
+                    "content": prompt,
+                }
+            ],
+            temperature=0.1,  # Tornar as respostas mais focadas
+            max_tokens=200,  # Permitir respostas mais longas
+            functions=[
+                {
+                    "name": "give_response",
+                    "description": "Use this function to give the response and whether or not the answer to the question was found in the text.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "answer_found": {
+                                "type": "boolean",
+                                "description": "Set this to true only if the provided text includes an answer to the question"
+                            },
+                            "response": {
+                                "type": "string",
+                                "description": "The full response to the question, if the information was relevant"
+                            }
+                        }
+                    },
+                    "required": ["answer_found"]
                 }
             ]
-        }
-
-        response = requests.post(url, headers=headers, data=json.dumps(data))
-
-        return response.json()
+        )
+        answer = response["choices"][0]["message"]["content"]
+        
+        dispatcher.utter_message(answer)

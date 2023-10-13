@@ -1,8 +1,9 @@
 version: "3.1"
 
 stories:
-- story: usuário quer informações da lei
+- story: perguntar e responder
   steps:
-  - intent: fetch_lei
-  - action: action_fetch_lei
+  - intent: fazer_pergunta
+  - action: action_get_keywords
+  - action: action_answer_question
 

@@ -3,10 +3,12 @@ from rasa_sdk.events import SlotSet
 from texto_pdf import texto
 import openai
 
-openai.api_key = 'pk-NQwxbvbSYZWwHHXISPhCDwhNYqJHHFfPdCaLPzrjePNvAIQo'
+# API
+openai.api_key = 'pk-jgZhazuvwcXjvflTexuwKNVqpiVFkMxAyqtYigqZBrdfJnIa'
 openai.api_base = 'https://api.pawan.krd/v1'
 model = "pai-001-light-beta"
 
+# Ação personalizada para obter palavras-chave
 class ActionGetKeywords(Action):
     def name(self):
         return "action_get_keywords"
@@ -14,17 +16,17 @@ class ActionGetKeywords(Action):
     def run(self, dispatcher, tracker, domain):
         question = tracker.latest_message['text']
         
-        
+        # Definindo o prompt para a chamada da API
         prompt = f"""Respoda as perguntas ao encontrar a informação para a pergunta em um arquivo texto_pdf.py. Oberve a pergunta do usuario e busque por palavras chaves no texto_pdf.py para responder a mesma. Apenas uma palavra por palavra-chave. Use apenas letras minúsculas. 
     
 {question}"""
-
+        # Fazendo a chamada da API
         response = openai.ChatCompletion.create(
             model=model,
             messages=[
                 {
                     "role": "system",
-                    "content": "Você sempre fornecerá 10 palavras-chave que incluam sinônimos relevantes das palavras da pergunta original com exceção das palavras grave e gravissima"
+                    "content": "Você sempre fornecerá 8 palavras-chave que incluam sinônimos relevantes das palavras da pergunta original."
                 },
                 {
                     "role": "user",
@@ -39,21 +41,23 @@ class ActionGetKeywords(Action):
 
         return [SlotSet("keywords", keywords)]
 
+# Ação personalizada para responder à pergunta
 class ActionAnswerQuestion(Action):
     def name(self):
         return "action_answer_question"
 
     def run(self, dispatcher, tracker, domain):
+        # Obtendo a última mensagem do usuário e o valor do slot keywords
         question = tracker.latest_message['text']
         keywords = tracker.get_slot('keywords')
         
-        
+         # Definindo o prompt para a chamada da API
         prompt = f"""```
 {texto}
 
 {question}
 ```"""
-
+        # Fazendo a chamada da API
         response = openai.ChatCompletion.create(
             model=model,
             messages=[
@@ -91,4 +95,8 @@ class ActionAnswerQuestion(Action):
         )
         answer = response["choices"][0]["message"]["content"]
         
+        # Enviando a resposta para o usuário
         dispatcher.utter_message(answer)
+
+        # Armazenando a última pergunta feita pelo usuário e a última resposta dada pelo bot
+        return [SlotSet("last_question", question), SlotSet("last_answer", answer), SlotSet("keywords", keywords)]

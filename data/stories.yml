@@ -1,9 +1,38 @@
 version: "3.1"
 
+
 stories:
+
 - story: perguntar e responder
   steps:
   - intent: fazer_pergunta
   - action: action_get_keywords
   - action: action_answer_question
+
+
+# - story: Primeira opção
+#   steps: 
+#   - intent: pergunta_inicial
+#   - action: action_get_keywords
+#   - action: action_answer_question
+#   - intent: pergunta_seguida
+#   - action: action_get_keywords
+#   - action: action_answer_question
+
+# - story: Segunda opção
+#   steps: 
+#   - intent: pergunta_inicial
+#   - action: action_get_keywords
+#   - intent: pergunta_seguida
+#   - action: action_answer_question
+
+# - story: Terceira opção
+#   steps: 
+#   - intent: pergunta_inicial
+#   - action: action_get_keywords
+#   - intent: pergunta_diferente
+#   - action: action_get_keywords
+#   - intent: pergunta_seguida
+#   - action: action_answer_question
+
 

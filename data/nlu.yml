@@ -1,7 +1,13 @@
 version: "3.1"
 
 nlu:
-- intent: answer_question
+- intent: fazer_pergunta
   examples: |
     - Qual a gravidade por dirigir sem cinto de segurança?
+    - Qual a gravidade por dirigir sem cinto?
+
+- intent: pergunta_seguida
+  examples: |
+    - Qual o valor da multa?
+    - Qual o valor da multa nesse caso?
     

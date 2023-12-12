@@ -5,10 +5,6 @@ intents:
 - answer_question
 - fazer_pergunta
 
-- pergunta_inicial
-- pergunta_seguida
-- pergunta_diferente
-
 actions:
 - action_get_keywords
 - action_answer_question
@@ -19,22 +15,12 @@ slots:
     mappings:
       - type: from_text
         action: action_answer_question
-  last_question:
-    type: text
-    mappings:
-      - type: from_text
-  last_answer:
-    type: text
-    mappings:
-      - type: from_text
 
 
-# slots:
-#   results:
-#     type: text
-#     mappings:
-#     - type: custom
-#       action: action_show_restaurants
+
+
+
+          
 
 
 

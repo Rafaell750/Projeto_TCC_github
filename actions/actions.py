@@ -4,9 +4,9 @@ from texto_pdf import texto
 import openai
 
 # API
-openai.api_key = 'pk-jgZhazuvwcXjvflTexuwKNVqpiVFkMxAyqtYigqZBrdfJnIa'
-openai.api_base = 'https://api.pawan.krd/v1'
-model = "pai-001-light-beta"
+openai.api_key = 'KEY'
+openai.api_base = 'BASE'
+model = "MODEL"
 
 # Ação personalizada para obter palavras-chave
 class ActionGetKeywords(Action):
@@ -71,7 +71,7 @@ class ActionAnswerQuestion(Action):
                 }
             ],
             temperature=0.1,  # Tornar as respostas mais focadas
-            max_tokens=200,  # Permitir respostas mais longas
+            max_tokens=100,  # Permitir respostas mais longas
             functions=[
                 {
                     "name": "give_response",

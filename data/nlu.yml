@@ -6,8 +6,54 @@ nlu:
     - Qual a gravidade por dirigir sem cinto de segurança?
     - Qual a gravidade por dirigir sem cinto?
 
-- intent: pergunta_seguida
-  examples: |
-    - Qual o valor da multa?
-    - Qual o valor da multa nesse caso?
+# - intent: pergunta_seguida
+#   examples: |
+#     - Qual o valor da multa?
+#     - Qual o valor da multa nesse caso?
+
+# - intent: gravidade_cinto
+#   examples: |
+#     - Qual a gravidade por dirigir sem cinto de segurança?
+#     - Quais são as penalidades por não usar o cinto de segurança?
+#     - Diga qual a punição por não utlizar o cinto?
+#     - ...
+#     - Qual a punição por não usar o cinto de segurança?
+#     - Qual a multa por dirigir sem cinto?
+#     - Qual a multa por dirigir sem cinto de segurança?
+
+
+# - intent: gravidade_sv
+#   examples: |
+#     - Qual a gravidade por ultrapassar o sinal vermelho?
+#     - Quais são as penalidades por ultrapassar o sinal vermelho?
+#     - Se eu passar no sinal vermelho?
+#     - ...
+#     - Qual a punição por ultrapassar o sinal vermelho?
+#     - Multa por ultrapassar o sinal vermelho?
+
+# - intent: gravidade_corrida
+#   examples: |
+#     - Qual a gravidade por disputar corrida?
+#     - Quais são as penalidades por disputar corrida?
+#     - Qual a multa por disputar uma corrida na estrada?
+#     - ...
+#     - Qual a punição por fazer corrida na estrada?
+#     - O que acontece se eu disputar uma corrida na estrada?
+
+
+
+# - intent: gravidade_fs
+#   examples: |
+#     - Qual a gravidade por parar em cima da faixa de segurança?
+#     - Qual a gravidade por parar em cima da faixa de pedestres?
+#     - Qual a multa por parar o carro em cima da faixa de sgurança?
+#     - ...
+#     - Qual a punição por deixar o carro em cima da faixa de pedestres?
+#     - O que acontece se eu deixar o carro sobre a faixa de pedestres?
+
+
+    
+
+
+
     
